@@ -1,40 +1,18 @@
 import express, { Request, Response } from 'express';
-import * as fs from 'fs';
-import csv from 'csv-parser';
+import { getTickets } from './models/Ticket';
+
 
 const app = express();
 app.use(express.json());
 
 const PORT = 3000;
 
-interface Ticket {
-  origin: string;
-  destination: string;
-  airline: string;
-  flight_num: string;
-}
-
 app.get('/', (req: Request, res: Response) => {
     res.send('Hello World!!!!!!');
 });
 
 // Endpoint to tickets info
-app.get('/tickets', (req: Request, res: Response) => {
-  const tickets: Ticket[] = [];
-
-  fs.createReadStream('data/challenge_dataset.csv')
-    .pipe(csv())
-    .on('data', (row: Ticket) => {
-      tickets.push(row);
-    })
-    .on('end', () => {
-      res.json(tickets);
-    })
-    .on('error', (error: any) => {
-      console.error('Error al leer el archivo CSV:', error);
-      res.status(500).send('Error al procesar el archivo CSV');
-    });
-});
+app.get('/tickets', getTickets);
 
 // Iniciar la aplicación Express
 app.listen(PORT, () => {
