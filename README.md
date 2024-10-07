@@ -34,3 +34,10 @@ Weather App is an application that displays real-time weather for different airp
 
 - GitHub: [@ivaan1992](https://github.com/ivaan1992)
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/ivan-linares-gaona/)
+
+
+## Screen Record
+[Screencast from 2024-10-07 13-42-20.webm](https://github.com/user-attachments/assets/bedd9611-84e6-4c49-b03a-c096e7cb67e5)
+
+
+
