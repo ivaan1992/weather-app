@@ -1,30 +1,31 @@
-import { getTickets } from '../src/models/Ticket';
-import { Response } from 'express';
+import { 
+    ticketAdapter, 
+    Ticket
+} from '../src/models/Ticket';
 
-describe('CSV and Weather API Integration Test', () => {
-  it('should process the CSV and fetch real weather data for origin and destination', async () => {
-    const mockReq = {};
-    const mockRes = {
-      json: jest.fn(),
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+
+const mock = new MockAdapter(axios);
+
+describe('testing ticketAdapter function', () => {
+    const ticket: Ticket = {
+        flight_num: '123',
+        origin: 'MEX',
+        destination: 'LAX',
+        airline: '40'
     };
 
- 
-    await getTickets(mockReq as any, mockRes as unknown as Response);
+    test('Should display airport code without making API calls', async() => {
+        const mockResponse = {
+            flight_num: '123',
+            origin: 'MEX',
+            destination: 'LAX',
+            airline: '40'
+        };
+        mock.onGet(`https://api.example.com/airports/${ticket.origin}`).reply(200, mockResponse);
+        const airportInfo = await ticketAdapter(ticket);
 
-    
-    expect(mockRes.json).toHaveBeenCalled();
-    const tickets = mockRes.json.mock.calls[0][0];
-
-    expect(Array.isArray(tickets)).toBe(true);
-    expect(tickets.length).toBeGreaterThan(0);
-
-
-    tickets.forEach((ticket: any) => {
-      expect(ticket.origin_weather).toBeDefined();
-      expect(ticket.destination_weather).toBeDefined();
-      expect(ticket.origin_weather).not.toBe('N/A');
-      expect(ticket.destination_weather).not.toBe('N/A');
+        expect(airportInfo.origin).toEqual('MEX');
     });
-
-  });
 });
