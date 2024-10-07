@@ -5,6 +5,7 @@ Weather App is an application that displays real-time weather for different airp
 
 
 ## Screenshot
+![Screenshot from 2024-10-07 13-13-39](https://github.com/user-attachments/assets/ad8e850e-c3b8-4960-bfad-5ed324e921a0)
 
 ## Built With
 
